@@ -1,0 +1,61 @@
+# This file exists so you can easily regenerate your project.
+#
+# `cookiepatcher` is a convenient shim around `cookiecutter`
+# for regenerating projects (it will generate a .cookiecutterrc
+# automatically for any template). To use it:
+#
+#    pip install cookiepatcher
+#    cookiepatcher gh:ionelmc/cookiecutter-pylibrary confscale
+#
+# See:
+#    https://pypi.org/project/cookiepatcher
+#
+# Alternatively, you can run:
+#
+#    cookiecutter --overwrite-if-exists --config-file=confscale/.cookiecutterrc gh:ionelmc/cookiecutter-pylibrary
+
+default_context:
+    c_extension_optional: "no"
+    c_extension_support: "no"
+    codacy: "no"
+    codacy_projectid: "[Get ID from https://app.codacy.com/gh/EtienneReboul/confscale/settings]"
+    codeclimate: "no"
+    codecov: "yes"
+    command_line_interface: "plain"
+    command_line_interface_bin_name: "confscale"
+    coveralls: "yes"
+    distribution_name: "confscale"
+    email: "reboul@ibpc.fr"
+    formatter_quote_style: "double"
+    full_name: "Etienne Reboul"
+    function_name: "compute"
+    github_actions: "yes"
+    github_actions_osx: "yes"
+    github_actions_windows: "yes"
+    license: "GNU Lesser General Public License v2.1 or later (LGPLv2+)"
+    module_name: "core"
+    package_name: "confscale"
+    pre_commit: "yes"
+    project_name: "confscale"
+    project_short_description: "at scale generation of conformers with RDKit"
+    pypi_badge: "yes"
+    pypi_disable_upload: "no"
+    release_date: "today"
+    repo_hosting: "github.com"
+    repo_hosting_domain: "github.com"
+    repo_main_branch: "main"
+    repo_name: "confscale"
+    repo_username: "EtienneReboul"
+    scrutinizer: "no"
+    setup_py_uses_setuptools_scm: "yes"
+    sphinx_docs: "yes"
+    sphinx_docs_hosting: "https://confscale.readthedocs.io/"
+    sphinx_doctest: "no"
+    sphinx_theme: "furo"
+    test_matrix_separate_coverage: "no"
+    tests_inside_package: "yes"
+    version: "0.0.0"
+    version_manager: "bump2version"
+    website: "https://blog.ionelmc.ro"
+    year_from: "2025"
+    year_to: "2025"
