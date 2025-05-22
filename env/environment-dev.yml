@@ -1,0 +1,28 @@
+name: confscale-dev
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.9
+  - pip
+  - rdkit>=2023.9.1
+  - dask>=2024.1.0
+  - pyarrow
+  # Development dependencies
+  - pytest
+  - pytest-cov
+  - pre-commit
+  - ruff
+  # Notebook dependencies
+  - ipykernel
+  - jupyter
+  - notebook
+  - ipywidgets
+
+  # visualization dependencies
+  - matplotlib
+  - seaborn
+  - graphviz
+  - python-graphviz
+  - pip:
+    - -e ..  # install the package in development mode

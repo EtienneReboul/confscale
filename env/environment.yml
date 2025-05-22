@@ -1,0 +1,11 @@
+name: confscale
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3.9
+  - pip
+  - rdkit>=2023.9.1
+  - dask>=2024.1.0
+  - pip:
+    - -e ..  # install the package in development mode
