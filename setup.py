@@ -65,7 +65,8 @@ setup(
     ],
     python_requires=">=3.9",
     install_requires=[
-        # eg: "aspectlib==1.1.1", "six>=1.7",
+        "dask>=2024.1.0",
+        "rdkit>=2023.9.1",
     ],
     extras_require={
         # eg:
