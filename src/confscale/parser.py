@@ -38,6 +38,7 @@ def write_dask_to_parquet(
     output_path: str,
     compression: str = "zstd",
     level_compression: int = 5,
+    schema: pa.Schema | None = None,
 ) -> dd.dask_expr._collection.Scalar:
     """
     Writes a Dask DataFrame to Parquet files.
@@ -57,6 +58,7 @@ def write_dask_to_parquet(
         compression=compression,
         compression_level=level_compression,
         compute=False,
+        schema=schema,
     )
 
 
