@@ -1,0 +1,4 @@
+compression_algorithm,compression_level,blocksize,duration,input_size,output_size,compression_ratio,report_path
+snappy,,16MB,127.12818932533264,47406986871,26816313318,1.7678413251227512,../reports/ZINC20_compression/snappy/ZINC20_drug_like_snappy_None_16MB_dask-report.html
+snappy,,32MB,120.10814142227173,47406986871,25934581123,1.8279449606748137,../reports/ZINC20_compression/snappy/ZINC20_drug_like_snappy_None_32MB_dask-report.html
+snappy,,64MB,141.1209282875061,47406986871,25636033179,1.8492325446759792,../reports/ZINC20_compression/snappy/ZINC20_drug_like_snappy_None_64MB_dask-report.html
