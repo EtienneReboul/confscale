@@ -1,0 +1,14 @@
+name: csd-api-env
+channels:
+  - conda-forge
+  - defaults
+  - https://conda.ccdc.cam.ac.uk
+dependencies:
+  - python=3.11
+  - rdkit
+  - jupyter
+  - notebook
+  - ipykernel
+  - pandas
+  - pip
+  - csd-python-api
