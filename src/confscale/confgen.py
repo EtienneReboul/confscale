@@ -10,9 +10,9 @@ Functions:
     embeding3D_wrapper: Generate 3D conformers for a given RDKit Mol object.
 
 Examples:
-    >>> from confscale.confgen import smi2molh, embeding3D_wrapper
-    >>> mol = smi2molh('CCO')
-    >>> mol_with_conformers = embeding3D_wrapper(mol, nb_conformers=10, seed=42)
+    >>> from confscale.confgen import smi2molhbin, embeding3D_wrapper
+    >>> molhbin = smi2molhbin('CCO')
+    >>> mol_with_conformers = embeding3D_wrapper(molhbin, nb_conformers=10, seed=42)
 """
 
 import time
@@ -21,9 +21,9 @@ from rdkit import Chem
 from rdkit.Chem import rdDistGeom
 
 
-def smi2molh(smi: str) -> Chem.Mol:
+def smi2molhbin(smi: str) -> bytes:
     """
-    Convert a SMILES string to an RDKit Mol object with hydrogens added.
+    Convert a SMILES string to an RDKit binary molecule representation with hydrogens added.
 
     Parameters
     ----------
@@ -32,26 +32,36 @@ def smi2molh(smi: str) -> Chem.Mol:
 
     Returns
     -------
-    Chem.Mol
-        The RDKit Mol object with hydrogens added.
+    bytes
+        The RDKit Mol object with hydrogens added as binary data.
 
     Raises
     ------
     ValueError
         If the SMILES string is invalid.
+
+    Examples
+    --------
+    >>> binary_mol = smi2molhbin('CC=O')
+    >>> isinstance(binary_mol, bytes)
+    True
+    >>> Chem.Mol(binary_mol).GetNumAtoms()
+    7
     """
     mol = Chem.MolFromSmiles(smi)
     if mol is None:
         raise ValueError(f"Invalid SMILES string: {smi}")
     mol = Chem.AddHs(mol)
-    return mol
+
+    return mol.ToBinary()
 
 
 def embeding3D_wrapper(
-    molh: Chem.Mol, nb_conformers: int, seed: int | None = None, nb_thread: int = 2, forcetol: float = 0.0135
+    molhbin: bytes, nb_conformers: int, seed: int | None = None, nb_thread: int = 2, forcetol: float = 0.0135
 ) -> Chem.Mol:
     """
-    Generate 3D conformers for a given RDKit Mol object
+    Generate 3D conformers for a given RDKit Mol object using ETKDGv3 algorithm.
+
     Parameters
     ----------
     molh : Chem.Mol
@@ -68,7 +78,14 @@ def embeding3D_wrapper(
     Returns
     -------
     Chem.Mol
-        The RDKit Mol object with generated 3D conformers.
+        The RDKit Mol object with generated 3D conformers
+        .
+    Examples
+    --------
+    >>> molhbin = smi2molhbin('CCO')
+    >>> mol_with_conformers = embeding3D_wrapper(molhbin, nb_conformers=10, seed=42)
+    >>> mol_with_conformers.GetNumConformers()
+    10
 
     Notes
     -----
@@ -77,6 +94,10 @@ def embeding3D_wrapper(
         signed integer, in order to avoid potential issues with large integers.
         - The `forcetol` parameter is set to 0.0135, in order
     """
+    # Reconstruct the molecule from binary
+    molh = Chem.Mol(molhbin)
+
+    # Set up the embedding parameters
     etkdg = rdDistGeom.ETKDGv3()
     etkdg.randomSeed = seed if seed is not None else int(time.time() * 1000000) % (2**31)
     etkdg.verbose = False
@@ -84,6 +105,7 @@ def embeding3D_wrapper(
     etkdg.useRandomCoords = True
     etkdg.optimizerForceTol = forcetol
 
+    # Generate the conformers
     rdDistGeom.EmbedMultipleConfs(molh, numConfs=nb_conformers, params=etkdg)
 
     return molh

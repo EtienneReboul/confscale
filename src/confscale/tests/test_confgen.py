@@ -12,18 +12,18 @@ on conformer generation, and the consistency of results with the same parameters
 import pytest
 
 from confscale.confgen import embeding3D_wrapper
-from confscale.confgen import smi2molh
+from confscale.confgen import smi2molhbin
 
 
 def test_smi2molh_valid_smiles():
     """Test conversion of valid SMILES string to RDKit Mol with hydrogens."""
     # Test with simple molecules
-    mol = smi2molh("CCO")
+    mol = smi2molhbin("CCO")
     assert mol is not None
     assert mol.GetNumAtoms() > 0
 
     # Test a more complex molecule
-    mol = smi2molh("c1ccccc1")
+    mol = smi2molhbin("c1ccccc1")
     assert mol is not None
     assert mol.GetNumAtoms() > 0
 
@@ -31,13 +31,13 @@ def test_smi2molh_valid_smiles():
 def test_smi2molh_invalid_smiles():
     """Test error handling for invalid SMILES string."""
     with pytest.raises(ValueError, match="Invalid SMILES string"):
-        smi2molh("invalid_smiles")
+        smi2molhbin("invalid_smiles")
 
 
 def test_embeding3D_wrapper():
     """Test generation of 3D conformers."""
     # Create a molecule for testing
-    mol = smi2molh("CCO")
+    mol = smi2molhbin("CCO")
 
     # Test with different conformer numbers
     for nb_confs in [1, 5]:
@@ -47,7 +47,7 @@ def test_embeding3D_wrapper():
 
 def test_embeding3D_reproducibility():
     """Test reproducibility of conformer generation with same seed."""
-    mol = smi2molh("CCO")
+    mol = smi2molhbin("CCO")
 
     # Generate conformers with the same seed
     mol1 = embeding3D_wrapper(mol, nb_conformers=1, seed=42)
@@ -68,7 +68,7 @@ def test_embeding3D_reproducibility():
 
 def test_embeding3D_threads_parameter():
     """Test that different thread values don't cause errors."""
-    mol = smi2molh("CCO")
+    mol = smi2molhbin("CCO")
 
     # Test with different thread values
     for threads in [1, 4]:
@@ -78,7 +78,7 @@ def test_embeding3D_threads_parameter():
 
 def test_embeding3D_forcetol_parameter():
     """Test that different forcetol values don't cause errors."""
-    mol = smi2molh("CCO")
+    mol = smi2molhbin("CCO")
 
     # Test with different force tolerance values
     for forcetol in [0.01, 0.02]:
